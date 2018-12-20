@@ -1,0 +1,112 @@
+FORMAT: 1A
+HOST: http://calculator.166.cz
+
+# Calculator
+
+
+## Compute [/compute/{uuid}]
+
++ Parameters 
+
+    + uuid: `de1c8e0b-d0d9-416b-a726-3bcc55edbe1e` (string, optional) - UUIDv4
+
+### Send new exercise [POST]
+
+Supported opertions (sum, avg, mean, max, min).
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "numbers": [1, 2, 2.4, 555.4],
+                "operation": "sum"
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "id": "de1c8e0b-d0d9-416b-a726-3bcc55edbe1e",
+                "numbers": [1, 2, 2.4, 555.4],
+                "operation": "sum",
+                "status": "done"
+                "result": "560.8"
+            }
+            
++ Response 202 (application/json)
+
+    + Headers
+
+            Location: /result/de1c8e0b-d0d9-416b-a726-3bcc55edbe1e
+            
+    + Body  
+    
+            {
+                "status": "pending",
+                "eta": "1m"
+            }    
+
+### Cancel compute request [DELETE]
+
++ Request (application/json)
+
+
++ Response 200
+
+    + Body
+    
+            {
+                "id": "de1c8e0b-d0d9-416b-a726-3bcc55edbe1e",
+                "status": "canceled"
+            }
+
+
++ Response 404
+
+    + Body 
+    
+            {
+                "id": "de1c8e0b-d0d9-416b-a726-3bcc55edbe1e1111",
+                "status": "error",
+                "error": "uuid not found"
+            }
+
+## Results [/result/{uuid}]
+
+### Get result [GET]
+
++ Parameters 
+
+    + uuid: `de1c8e0b-d0d9-416b-a726-3bcc55edbe1e` (string, required) - UUIDv4
+
++ Response 200 (application/json)
+
+
+            {
+                "id": "de1c8e0b-d0d9-416b-a726-3bcc55edbe1e",
+                "numbers": [1, 2, 2.4, 555.4],
+                "operation": "sum",
+                "status": "done",
+                "result": "560.8"
+            }
+            
++ Response 200 (application/json)
+
+
+            {
+                "id": "de1c8e0b-d0d9-416b-a726-3bcc55edbe1e",
+                "numbers": [1, 2, 2.4, 555.4],
+                "operation": "sum",
+                "status": "pending"
+            }
+
++ Response 404 (application/json)
+
+    + Body 
+    
+            {
+                "id": "de1c8e0b-d0d9-416b-a726-3bcc55edbe1e1111",
+                "error": "uuid not found"
+            }
