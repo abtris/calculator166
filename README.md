@@ -9,6 +9,9 @@ This repository contains demo application using for training.
 - Router (manage API)
 - Services (by operations)
 
+## API documentation
+
+- https://calculator166cz.docs.apiary.io/
 
 ## Diagram
 
