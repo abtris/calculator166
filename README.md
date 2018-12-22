@@ -16,3 +16,11 @@ This repository contains demo application using for training.
 ## Diagram
 
 ![](mermaid-diagram-20181220183016.svg)
+
+
+## Testing
+
+```bash
+# Operations
+curl -X POST -H 'Content-Type: application/json' -d "{\"numbers\": [1,2,33]}" http://localhost:8080/operation
+```
